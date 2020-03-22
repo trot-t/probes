@@ -196,12 +196,12 @@ K_U = U_\textcyrillic{вых}/U_\textcyrillic{вх} = - R_2/R_1,
 		 to[vsource,name=E2,l2=$E_2$ and \SI{0}{\volt}] ++ (0,-3)  node[tground] (G) {}
 		 (E2.south east) node {-} (E2.south west) node {+}
         (opamp.out) to[short,-o] ++ (1,0) node(OUT_P) {}
-        (opamp.-) to[short,*-] ++ (0,1.2) node (A) {} to[R,l2=$R_4$ and \SI{1}{\kilo\ohm},l2 halign=c, l2 valign=b] 
+        (opamp.-) to[short,*-] ++ (0,1.2) node (A) {} to[R,l2=$R_4$ and \SI{10}{\kilo\ohm},l2 halign=c, l2 valign=b] 
 		(opamp.out |- A) to[short,-*] (opamp.out)
 	(opamp.+)  to[R,l2=$R_1$ and \SI{1}{\kilo\ohm},l2 halign=c, l2 valign=b] ++ (-3,0) --++ (0,-1)
 		 to[vsource,name=E1,l2=$E_1$ and \SI{0}{\volt}] ++ (0,-3)  node[tground] (G) {}
 		 (E1.south east) node {-} (E1.south west) node {+}
-		(opamp.+) to[short,*-] ++ (0,-1) to[R,l2=$R_3$ and \SI{1}{\kilo\ohm},l2 halign=c, l2 valign=b] (opamp.+ |- G) node[tground] {}
+		(opamp.+) to[short,*-] ++ (0,-1) to[R,l2=$R_3$ and \SI{10}{\kilo\ohm},l2 halign=c, l2 valign=b] (opamp.+ |- G) node[tground] {}
 
 ;\end{circuitikz}
         \caption{схема включения операционного усилителя}
