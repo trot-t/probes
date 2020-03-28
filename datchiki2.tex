@@ -1,4 +1,30 @@
+\providecommand{\pdfxopts}{a-1b,cyrxmp} 
+\providecommand{\thisyear}{2020}
+\immediate\write18{rm \jobname.xmpdata}%  uncomment for Unix-based systems
+\begin{filecontents*}{\jobname.xmpdata}
+\Title{Датчики. Лабораторная работа №2\textemdash\thisyear} 
+\Author{Артем Николаевич Прокшин}
+\Creator{pdfTeX + pdfx.sty with options \pdfxopts }
+\Subject{Лабораторная работа №2
+\sep
+	исследование инструментального усилителя}
+\Keywords{операционный усилитель, инструментальный усилитель, ЛЭТИ}
+\CoverDisplayDate{март \thisyear}
+\CoverDate{2020-03-22}
+\Copyrighted{True}
+\Copyright{Public Domain}
+\CopyrightURL{http://github.com/trot-t}
+\Creator{pdfTeX + pdfx.sty with options \pdfxopts }
+\end{filecontents*}
+
 \documentclass[a4paper,12pt]{article}
+
+\pdfcompresslevel=9
+
+\usepackage[\pdfxopts]{pdfx}[2016/03/09]
+\PassOptionsToPackage{obeyspaces}{url}
+\let\tldocrussian=1  % for live4ht.cfg
+
 \usepackage{extsizes}
 
 \usepackage[T2A]{fontenc}
@@ -76,13 +102,13 @@
 \subsection{Краткие теоретические сведения}
 
 Схема, изображенная на (рис.\ref{instrument}) представляет собой стандартную конфигурацию инструментального (измерительного) усилителя.
-Входной каскад является удачным сочетанием двух ОУ, обеспечивающий большой дифференциальный коэффициэнт усиления и
+Входной каскад является удачным сочетанием двух ОУ, обеспечивающий большой дифференциальный коэффициент усиления и
 единичный коэффициент усиления синфазных сигналов без какого-либо точного согласования резисторов.
 Его дифференциальный выход представляет собой сигнал с существенно уменьшенной (относительно) синфазной составляющей 
 и используется для возбуждения схемы обычного дифференциального усилителя. Последний часто бывает включен
-с единичным коэффициэнтом усиления $R_3 = R_4$, и его задача -- получение однополюсного выходного сигнала
+с единичным коэффициентом усиления $R_3 = R_4$, и его задача -- получение одно-полюсного выходного сигнала
 и подавление остаточного дифференциального сигнала. В результате отпадает надобность в том, 
-чтобы выходной ОУ имел большой КОСС, и не требует прецензионного согласования резисторов в схеме обвязки $U_3$.
+чтобы выходной ОУ имел большой КОСС, и не требует прецизионного согласования резисторов в схеме обвязки $U_3$.
 %Настройка нуля сдвига по всей схемме может быть сделана, как показано на одном из входных ОУ. 
 %Эти входные ОУ должны, однако, иметь высокий КОСС и выбирать их следует тщательно. 
 \begin{figure}[ht!]
@@ -141,14 +167,15 @@
 \end{equation}
 
 \subsection{Выбор операционных усилителей для инструментального усилителя}
-Выбор операционных усилителей должен базироваться на трубованиях приложения. Принимается во внимание подавление шумов, диапазон входного напряжения,
-полоса пропускания усилителя, время отклика, потребление усилителя. Также должна учитыватся нагрузка усилителя. 
+Выбор операционных усилителей должен базироваться на требованиях приложения. Принимается во внимание подавление шумов, диапазон входного напряжения,
+полоса пропускания усилителя, время отклика, потребление усилителя. Также должна учитываться нагрузка усилителя. 
 В измерительных приложениях типичная нагрузка это записывающее устройство, осциллограф или АЦП, которые обычно  имеют высокий импеданс.
 
 %Selecting from a wide range of commercial opamps to implement an amplifier configuration should be based on performance requirements set by the application.  Typical considerations include noise performance, input signal voltage range, amplifier bandwidth, response time, and power consumption.  You must also consider what load your output needs to drive.  In instrumentation applications, typically the load is some sort of recording device, oscilloscope or A/D converter, that would have a high input impedance and thus not be a major performance consideration.  However, if you have to drive a low resistance load, you must ensure your amplifier can drive such a load and still maintain other performance goals.  Always select the opamp that best suits your application needs.  In this course, we will be using the commercial component from Analog Devices, OP467. This is a rugged BJT-based opamp with a class AB output stage suitable for driving a wide range of loads with high speed.  The data sheet for this device is available on the class website.}
 \subsection{Последовательность выполнения задания}
 \begin{enumerate}
-\item Собрать инструментальный усилитель (Analog Devices, OP467) с коэффициентом усиления (по напряжению) 1000.
+\item Собрать инструментальный усилитель (Analog Devices, OP467) с коэффициентом усиления (по напряжению) 1NN0, где NN -- двузначный номер по списку группы.
+      
 
 \item Исследовать зависимость напряжения смещения усилителя от величины резисторов $R_1$ и $R_2$
 
