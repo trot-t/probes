@@ -1,2 +1,7 @@
+*.swp
 *.aux
 *.log
+*.out
+*.bak
+*.xmpdata
+*.xmpi
