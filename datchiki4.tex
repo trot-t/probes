@@ -1,0 +1,178 @@
+\providecommand{\pdfxopts}{a-1b,cyrxmp}
+\providecommand{\thisyear}{2020}
+\immediate\write18{rm \jobname.xmpdata}%  uncomment for Unix-based systems
+\begin{filecontents*}{\jobname.xmpdata}
+\Title{Датчики. Лабораторная работа №3\textemdash\thisyear}
+\Author{Артем Николаевич Прокшин}
+\Creator{pdfTeX + pdfx.sty with options \pdfxopts }
+\Subject{Лабораторная работа №4
+\sep
+        измерение напряжения сети}
+\Keywords{операционный усилитель, измерение напряжения сети, ЛЭТИ}
+\CoverDisplayDate{март \thisyear}
+\CoverDate{2020-04-08}
+\Copyrighted{True}
+\Copyright{Public Domain}
+\CopyrightURL{http://github.com/trot-t}
+\Creator{pdfTeX + pdfx.sty with options \pdfxopts }
+\end{filecontents*}
+
+\documentclass[a4paper,12pt]{article}
+
+\pdfcompresslevel=9
+
+\usepackage[\pdfxopts]{pdfx}[2016/03/09]
+\PassOptionsToPackage{obeyspaces}{url}
+\let\tldocrussian=1  % for live4ht.cfg
+
+
+\usepackage{extsizes}
+\usepackage[left=15mm, top=20mm, right=15mm, bottom=20mm, nohead, footskip=7mm]{geometry} % настройки полей документа
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[european,cuteinductors,smartlabels,siunitx]{circuitikz}
+
+%%% Межстрочный интервал
+\usepackage{setspace}
+
+%% таблицы
+\usepackage{booktabs}
+%multi-row
+\usepackage{multirow}
+
+%% для кода
+\usepackage{color}
+\usepackage{listingsutf8}
+
+\input{colors}
+
+\lstset{%
+  language=C++,%
+  morekeywords={constexpr,nullptr,size_t,uint32_t,assert,override,final},%
+  basicstyle=\ttfamily\footnotesize,%
+  sensitive=true,%
+  keywordstyle=\color{blue},%
+  stringstyle=\color{darkgreen},%
+  commentstyle=\color{violet},%
+  showstringspaces=false,%
+  tabsize=2,%
+  frame=leftline,
+  rulecolor=\color{lightblue},
+  xleftmargin=20pt,
+}
+
+\lstset{
+%extendedchars=\true,
+%inputencoding=utf8x,   
+  numberstyle=\tiny,
+  numbers=left,
+  numbersep=10pt,
+  xleftmargin=20pt,
+  %framesep=4.5mm,
+  %framexleftmargin=2.5mm,
+  framexleftmargin=5pt,
+  framesep=15pt,
+  fillcolor=\color{lightgrey},
+}
+
+
+\title{Прецизионные схемы и малошумящая аппаратура}
+\author{}
+% Конец преамбулы
+\begin{document}
+%\maketitle
+%\begin{tikzpicture}
+%\newcommand{\xb}{-3}
+%\newcommand{\xa}{3}
+%\draw[thin, ->] (-6,0) -- (6,0) node[right] {$X$};
+%\draw[thin, ->] (0,-6) -- (0,6) node[left] {$Y$};
+%\foreach \x\xtext in {-5/-5,5/5,{\xb}/\xb,{\xa}/{\displaystyle \frac{-b+\sqrt{b^2-4ac}}{2a}}} % 
+%   \draw (\x,0.1) -- (\x,-0.1) node[below] {$\xtext$};
+
+ %\draw[domain=-5:5, help lines, smooth]
+ %       plot ({\x},{0.2*(\x-\xa)*(\x-\xb)});
+%\end{tikzpicture}
+%\section{Прецизионные схемы и малошумящая аппаратура}
+\section{Измерение напряжения сети}
+
+{\it Цель:} научиться измерять напряжение сети.
+ 
+\subsection{Краткие теоретические сведения}
+
+Для получения информации о форме и уровне напряжения фаз сети, к которой подключен фильтр используются трансформаторы ТП-321-461Р, 
+обеспечивающие согласование уровней и гальваническую развязку сигналов. 
+Преобразованный сигнал с трансформатора требуется снизить до уровня амплитуды не более 1,5 В и обеспечить смещение +1,5 В 
+для корректной обработки при помощи АЦП микроконтроллера, т.к. АЦП может обрабатывать сигналы в диапазоне 0..3,3 В. 
+Для решения этих задач применены операционные усилители OP297, имеющие диапазон питающего напряжения от $\pm2$ до $\pm20$ В, 
+низкий уровень смещения не более 50 мкВ и проявившие стабильность свойств и надежность при использовании в аналогичных цепях. 
+
+Описание работы на примере одного канала, два других работают идентично (см. Рисунок 11)
+
+\begin{figure}[!ht]
+\centering
+\begin{circuitikz}[scale=0.9]
+\draw
+	(0,0) node[transformer core] (T) {}
+	(T.A1) node[anchor=east, above] {A}
+	(T.A2) node[anchor=east, above] {N}
+	(T.B1) node[anchor=west] {}
+	(T.B2) node[anchor=west] {}
+	(T.base) node{$T_x$}
+	(T.B2) --++ (1,0) to[R, l=$R_{xx}$, *-*] ++ (0,2) node(N1) {} to[R, l=$R_{xx}$, -*] ++ (2,0) node(N2) {} 
+	to[D-,l=\small{$D_x$},-*] ++ (0,-2) node(N3) {} to[short] ++ (-2,0) 
+	(N3) to[short] ++ (1.5,0) node(N4) {}  to[D-,l_=\small{$D_x$},*-*] ++ (0,2) node(N5) {} to[short] ++ (-1.5,0)
+	($(N4) ! 0.5 ! (N5)$) ++ (2.5,0) node[op amp] (opamp) {}
+	(opamp.+) |- (N4.center) 
+	(opamp.-) |- (N5.center)
+	(opamp.up) --++(0,0.5) node[vcc] {\small{5\,\textnormal{V}}}
+	(opamp.down) --++(0,-0.5) node[vee]{\small{-5\,\textnormal{V}}}
+	(opamp.out) to[short] ++ (0,3) node(N6) {} to[R,l_=$R_x$, *-*] (opamp.- |- N6) node(N7) {} to[short, -*] (opamp.- |- N5)
+	(N6.center) --++ (0,1.5) node(N8) {}  to[C,l_=$C_x$] (opamp.- |- N8)  to[short] (opamp.- |- N6)
+	($(N4) ! 0.5 ! (N5)$) ++ (7,0) node[op amp] (opamp1) {}
+	(opamp.out |- N5) to[R,l=$R_x$,*-] ++ (1.8,0) -| (opamp1.-)
+	(opamp1.out) to[R,l=$R_x$] ++ (1.5,0) node(N9) {} to[C,l=$C_x$,*-] ++ (0,-2) 
+	(opamp1.+) to[R,l=$R_x$] ++ (-1.2,0) to[short] node[midway,below] {offset 1} ++ (-1,0) 
+	(N9) to[short] ++ (1,0) node[above] {$U_a$} 
+	;
+\end{circuitikz}
+\end{figure}
+
+Напряжение с трансформатора $T_x$ поступает на резисторный делитель напряжения $R_x-R_x$, понижающий уровень на $\ldots$, 
+затем на усилитель $DA_x$ и диодами $D_x$, $D_x$, ограничивающими напряжение на дифференциальном входе усилителя 
+при отсутствии питания схемы. Усилитель выполнен по схеме инвертирующего усилителя с коэффициентом усиления 1 
+(коэффициент задан резисторами $R_x$ и $R_x$). Параллельно резистору $R_x$ установлен конденсатор$ C_x$ для фильтрации 
+высокочастотных помех.
+С выхода усилителя сигнал поступает на сумматор сигналов, выполненный на операционном усилителе $DA_x$ 
+и резисторах $R_x$, $R_x$ и $R_x$. Выходное напряжение сумматора является суммой (с "весом") напряжений $V_{DA}$ и $V_{offset 1}$. 
+Выходное напряжение сумматора () определяется формулой (30):
+
+$$
+V_{DA} = \ldots
+$$
+
+
+\begin{tabular}{lll}
+	где $V_{DA}$ &--& это напряжение на выводу усилителя\\
+	$V_{offset 1}$ &--& напряжение в сети offset\\
+	$V_{DA}$ & -- & напряжение на выводе усилителя $DA_x$
+\end{tabular}
+
+Сигнал для смещения (см. \ldots) формируется источником {$DA_x$}, который имеет выходное напряжение 3 В, 
+стабилизируется и фильтруется конденсаторами $С_x$ и $С_x$, поступает на резисторный делитель $R_x-R_x$ с коэффициентом $\ldots$ , 
+затем, полученные 1,5 В поступают на повторители $DA_x$ и $DA_x$, с которых берется сигнал для смещения.
+
+
+Сумматор обеспечивает сложение переменного сигнала с усилителя $DA_x$ с сигналом смещения +1,5 В. 
+Затем выходной сигнал сумматора фильтруется R-C фильтром низких частот $R_x-C_x$ c частотой среза 5 кГц 
+(см. формулу (\ldots)) и поступает на вход АЦП микроконтроллера.
+Частота среза НЧ-фильтра:
+
+$$
+f_c = \ldots
+$$
+
+\end{document}
