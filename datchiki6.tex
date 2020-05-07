@@ -1,0 +1,129 @@
+\providecommand{\pdfxopts}{a-1b,cyrxmp}
+\providecommand{\thisyear}{2020}
+\immediate\write18{rm \jobname.xmpdata}%  uncomment for Unix-based systems
+\begin{filecontents*}{\jobname.xmpdata}
+\Title{Датчики. Лабораторная работа №6\textemdash\thisyear}
+\Author{Артем Николаевич Прокшин}
+\Creator{pdfTeX + pdfx.sty with options \pdfxopts }
+\Subject{Лабораторная работа №6
+\sep
+        датчики для системы управления ТАД}
+\Keywords{операционный усилитель, датчики для системы управления ТАД, ЛЭТИ}
+\CoverDisplayDate{март \thisyear}
+\CoverDate{2020-04-08}
+\Copyrighted{True}
+\Copyright{Public Domain}
+\CopyrightURL{http://github.com/trot-t}
+\Creator{pdfTeX + pdfx.sty with options \pdfxopts }
+\end{filecontents*}
+
+\documentclass[a4paper,12pt]{article}
+
+\pdfcompresslevel=9
+
+\usepackage[\pdfxopts]{pdfx}[2016/03/09]
+\PassOptionsToPackage{obeyspaces}{url}
+\let\tldocrussian=1  % for live4ht.cfg
+
+
+\usepackage{extsizes}
+\usepackage[left=15mm, top=20mm, right=15mm, bottom=20mm, nohead, footskip=7mm]{geometry} % настройки полей документа
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[european,cuteinductors,smartlabels,siunitx]{circuitikz}
+
+%%% Межстрочный интервал
+\usepackage{setspace}
+
+%% таблицы
+\usepackage{booktabs}
+%multi-row
+\usepackage{multirow}
+
+%% для кода
+\usepackage{color}
+\usepackage{listingsutf8}
+
+\input{colors}
+
+\lstset{%
+  language=C++,%
+  morekeywords={constexpr,nullptr,size_t,uint32_t,assert,override,final},%
+  basicstyle=\ttfamily\footnotesize,%
+  sensitive=true,%
+  keywordstyle=\color{blue},%
+  stringstyle=\color{darkgreen},%
+  commentstyle=\color{violet},%
+  showstringspaces=false,%
+  tabsize=2,%
+  frame=leftline,
+  rulecolor=\color{lightblue},
+  xleftmargin=20pt,
+}
+
+\lstset{
+%extendedchars=\true,
+%inputencoding=utf8x,   
+  numberstyle=\tiny,
+  numbers=left,
+  numbersep=10pt,
+  xleftmargin=20pt,
+  %framesep=4.5mm,
+  %framexleftmargin=2.5mm,
+  framexleftmargin=5pt,
+  framesep=15pt,
+  fillcolor=\color{lightgrey},
+}
+
+
+\title{Прецизионные схемы и малошумящая аппаратура}
+\author{}
+% Конец преамбулы
+\begin{document}
+%\maketitle
+%\begin{tikzpicture}
+%\newcommand{\xb}{-3}
+%\newcommand{\xa}{3}
+%\draw[thin, ->] (-6,0) -- (6,0) node[right] {$X$};
+%\draw[thin, ->] (0,-6) -- (0,6) node[left] {$Y$};
+%\foreach \x\xtext in {-5/-5,5/5,{\xb}/\xb,{\xa}/{\displaystyle \frac{-b+\sqrt{b^2-4ac}}{2a}}} % 
+%   \draw (\x,0.1) -- (\x,-0.1) node[below] {$\xtext$};
+
+ %\draw[domain=-5:5, help lines, smooth]
+ %       plot ({\x},{0.2*(\x-\xa)*(\x-\xb)});
+%\end{tikzpicture}
+%\section{Прецизионные схемы и малошумящая аппаратура}
+\section{Датчики для системы управления ТАД}
+
+{\it Цель: Рассчитать и смоделировать датчики для системы управления ТАД} 
+
+\input{invertor}
+ 
+\subsection{Задание на работу №6}
+
+Рассчитать и смоделировать в tina схему измерения температуры, постоянного напряжения и силы тока фаз инвертора в силовой цепи тягового aсинхронного двигателя трамвая. 
+Сделать акцент на отечественную элементную базу.
+Использовать трансформатор тока фирмы ЭЛТИ.
+Использовать дифференциальный усилитель AD8276 или ОУ, указанными \href{http://motorcontrol.ru/wp-content/uploads/2019/08/MCB2.pdf}{здесь}.
+
+Сигналы измерения подготовить для измерения аналогово-цифровыми преобразователями микроконтроллера К1921ВК01Т.
+
+
+
+
+\renewcommand{\bibname}{}
+\begin{thebibliography}{1}
+	\bibitem{lm211} \href{http://motorcontrol.ru/production/controlcards/motorcontrolboard/}{Отладочная плата MotorControlBoard К1921ВК01}
+\end{thebibliography}
+
+%http://motorcontrol.ru/production/controlcards/motorcontrolboard/
+
+
+
+
+
+\end{document}

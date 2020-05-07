@@ -1,0 +1,47 @@
+%\begin{table}[!ht]
+%\begin{tabular}{cc} 
+%\begin{minipage}[h]{0.5\linewidth} 
+\begin{figure}[ht!]
+\centering
+\begin{circuitikz}[scale=1]
+\ctikzset{bipoles/length=1.0cm}
+
+\draw(1.25,2.65)node[nigbt,bodydiode](npn1){};% 1 ряд 
+%\node[nigbt,bodydiode] (npn1) at (1.25,3.1) {};% 1 ряд 
+\draw (1.25,.55) node[nigbt,bodydiode](npn4){};%1ряд
+\draw (npn1.S) -- (npn4.D);
+
+% найдем положение плюсовой шины
+\path let \p1 = (npn1.D) in node(plus)  at (0,\y1) {};
+%	\draw (0,0) -- (-2,0)node(A){}  to[C] (A |- plus);
+
+	\draw (plus) to[smeter, t=V, v=$v$,american] (0,0);
+
+\draw(2.75,2.65)node[nigbt,bodydiode](npn3){};% 2 ряд 
+\draw (2.75,.55) node[nigbt,bodydiode](npn6){};% 2ряд
+\draw (npn3.S) -- (npn6.D);
+
+\draw (4.25,2.65)node[nigbt,bodydiode](npn5){};;%последний ряд 
+\draw (4.25,.55) node[nigbt,bodydiode](npn2){};%последний ряд
+\draw (npn5.S) -- (npn2.D);
+
+\draw (plus.center) --(npn1.D) node[above]{1} -- (npn3.D) node[above]{3} -- (npn5.D) node[above]{5}; % плюсовая шина
+\draw (0,0) -- (npn4.S) node[below]{4} -- (npn6.S) node[below]{6} -- (npn2.S) node[below]{2}; % минусовая шина
+
+	\draw ($(npn5.S)!0.95!(npn2.D)$)   node[left]{\scriptsize$C$} to[short,*-] ++ (0.25,0) to[iloop, mirror, name=IC] ++ (1,0) --++ (2,0) to[L,american inductor] ++ (1,0) node(C) {};    %катуха С 
+	\draw (IC.i) to [smeter, t=A, i=$i_C$] ++ (0,-2);
+	\draw ($(npn3.S)!0.5!(npn6.D)$) node[left]{\scriptsize$B$} to[short,*-] ($(npn5.S)!0.5!(npn2.D)$) -- ++ (0.25,0)  to[short] ++ (0.75,0) to[iloop, mirror, name=IB] ++ (1.75,0) --++ (0.5,0)  
+	to[L,american inductor, -*]  (C.center |- IB);  % катуха В 
+	\draw (IB.i) -- (IC.i -| IB.i) to [smeter, t=A, i=$i_B$] ++ (0,-2);
+	\draw ($(npn1.S)!0.05!(npn4.D)$) node[left]{\scriptsize$A$} to[short,*-] ($(npn5.S)!0.05!(npn2.D)$) -- ++ (0.25,0)  to[short] ++ (2.05,0) to[iloop, mirror, name=IA] ++ (1,0) to[L,american inductor] (C.center |- IA) node(A) {};
+       \draw (IA.i) -- (IC.i -| IA.i) to [smeter, t=A, i=$i_A$] ++ (0,-2);
+
+\draw (A.center)--(C.center);
+\end{circuitikz}
+	\caption{схема автономного инвертора напряжения для трех фаз ТАД и места установки датчиков}
+	\label{ain}
+\end{figure}
+%\end{minipage}
+%	}
+%\end{tabular}
+%\end{table}
