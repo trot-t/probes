@@ -194,21 +194,22 @@ $$
 K_U = U_\text{вых}/U_\text{вх} = -\frac{R_2}{R_1}
 $$
 
+% ГОСТ идеальный источник напряжения http://docs.cntd.ru/document/1200007058
 \begin{figure}[!ht]
 	\centering
-\begin{circuitikz}[american voltage source]
+\begin{circuitikz}
 	% 
-	\ctikzset{bipoles/vsourceam/inner plus={\tiny $+$}}
+	\ctikzset{bipoles/vsourceam/inner plus={\tiny $+$}}  % для опции(если нужна) [american voltage source]
 	\ctikzset{bipoles/vsourceam/inner minus={\tiny $-$}}
 	\ctikzset{bipoles/generic/height=0.25}
 	\ctikzset{bipoles/generic/width=0.6}
 	\draw
         (0,0) node[op amp] (opamp) {}   % операционный усилитель
 	(opamp.+) to[R,l=$R_3$,*-] ++(0,-2) node[tground] (gnd) {}  % неинвертирующий вход
-	(opamp.+) to[R,l=$R_1$] ++(-2,0) to[american voltage source,l_=$V_1$] ++(0,-2) node[tground] {} 
+	(opamp.+) to[R,l=$R_1$] ++(-2,0) to[V,l_=$V_1$] ++(0,-2) node[tground] {} 
 	let \p1=(gnd), \p2=(opamp.-), \p3=(opamp.out), \p4=(opamp.+)  in          % координаты \p(\x,\y) входов и выходов     
 	(opamp.-) to[resistor,l_=$R_2$]  ++(-2,0) -|++ ($(-2,{\y4-\y2})$)  
-	to[american voltage source, l_=$V_2$]  ++(0,-2) node[tground] {}          % инвертирующий вход
+	to[V, l_=$V_2$]  ++(0,-2) node[tground] {}          % инвертирующий вход
 	(opamp.-) to[short,*-] ++ (0,1.5) to[R,l=$R_4$] ++ ($(\x3,0) - (\x2,0)$)  % резистор обратной связи 
 	to[short,-*] (opamp.out)  % выход                                  
 	--++ (0.5,0) to[rmeterwa, t=v] ++ ($({\x3+1},\y1) - ({\x3+1},\y3)$) node[tground] {} 
