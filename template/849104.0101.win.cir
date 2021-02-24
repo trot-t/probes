@@ -1,0 +1,40 @@
+849104.0101 (PSpice format)
+*
+.control
+set color0 = white   ; белый фон  
+set color1 = black
+set color2 = brown
+set color3 = green
+set color4 = gold
+set color5 = red
+* постоянное напряжение от 0 до 5 с шагом 0.1
+DC VS2 0 5 0.1
+plot v(3)
+.endc
+XIOP1       1 2 3 IdOpamp    
+R3          0 1 1K   ; узел 1 - неинвертирующий  
+R1          4 1 1K
+VS1         4 0 0
+R2          5 2 1K   ; узел 2 - инвертирующий
+VS2         5 0 14
+R4          2 3 1K   ; узел 3 - выход
+.END
+
+* http://www.ecircuitcenter.com/Circuits/opmodel1/opmodel2.htm
+*
+* OPAMP MACRO MODEL, SINGLE-POLE 
+* connections:      non-inverting input
+*                   |   inverting input
+*                   |   |   output
+*                   |   |   |
+.SUBCKT IdOpamp     1   2   6
+* INPUT IMPEDANCE
+RIN	1	2	10MEG
+* DC GAIN (100K) AND POLE 1 (10HZ)
+EGAIN	3 0	1 2	100K
+RP1	3	4	1K
+CP1	4	0	15.915UF
+* OUTPUT BUFFER AND RESISTANCE
+EBUFFER	5 0	4 0	1
+ROUT	5	6	10
+.ENDS

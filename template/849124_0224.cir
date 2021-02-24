@@ -1,0 +1,118 @@
+2l (PSpice format)
+**************************************
+**  This file was created by TINA   **
+**         www.tina.com             ** 
+**      (c) DesignSoft, Inc.        **          
+**     www.designsoftware.com       **
+**************************************
+.LIB "C:\Program Files (x86)\DesignSoft\Tina 9 - TI\EXAMPLES\SPICE\TSPICE.LIB"
+.LIB "C:\Program Files (x86)\DesignSoft\Tina 9 - TI\SPICELIB\Operational Amplifiers.LIB"
+.LIB
+.TEMP 27
+.AC DEC 20 10 1MEG
+.TRAN 2N 1U
+
+.OPTIONS ABSTOL=1P ITL1=150 ITL2=20 ITL4=10 TRTOL=7 
+.PROBE V(1,0)
+
+VS8         4 0 24
+VS7         0 5 24
+VS6         10 0 24
+VS5         0 11 24
+VS4         12 0 24
+VS3         0 13 24
+VS2         14 0 6M
+VS1         15 0 2M
+R7          2 1 1K 
+R6          0 3 1K 
+R5          6 3 1K 
+R4          7 2 1K 
+R3          6 8 14.868MEG 
+R2          8 9 24K 
+R1          9 7 14.868MEG 
+XU3         3 2 4 5 1 OPA277_0
+XU2         14 8 10 11 6 OPA277_0
+XU1         15 9 12 13 7 OPA277_0
+
+
+.LIB "C:\Program Files (x86)\DesignSoft\Tina 9 - TI\SPICELIB\Operational Amplifiers.LIB"
+* DEVICE=OPA277,OPAMP,NPN,INT
+*
+* REV. A, 23 FEB 1999 BY DAVID BAUM
+* REV. B, 27 APR 1999 BY NEIL P. ALBAUGH: EDITED TO STD FORMAT
+*
+* OPA277 OPERATIONAL AMPLIFIER "MACROMODEL" SUBCIRCUIT
+* CREATED USING PARTS RELEASE 8.0 ON 11/18/97 AT 11:06
+* PARTS IS A MICROSIM PRODUCT.
+*
+* THIS MACROMODEL MODELS QUIESCENT CURRENT BUT IT DOES NOT MODEL SHORT CIRCUIT CURRENT.
+* INPUT VOLTAGE NOISE AND 1/F NOISE IS MODELED.
+* ------------------------------------------------------------------------
+*|(C) COPYRIGHT TEXAS INSTRUMENTS INCORPORATED 2007. ALL RIGHTS RESERVED. |
+*|                                                                        |
+*|THIS MODEL IS DESIGNED AS AN AID FOR CUSTOMERS OF TEXAS INSTRUMENTS.    |
+*|NO WARRANTIES, EITHER EXPRESSED OR IMPLIED, WITH RESPECT TO THIS MODEL  |
+*|OR ITS FITNESS FOR A PARTICULAR PURPOSE IS CLAIMED BY TEXAS INSTRUMENTS |
+*|OR THE AUTHOR.  THE MODEL IS LICENSED SOLELY ON AN "AS IS" BASIS.  THE  |
+*|ENTIRE RISK AS TO ITS QUALITY AND PERFORMANCE IS WITH THE CUSTOMER.     |
+* ------------------------------------------------------------------------
+*
+*
+* CONNECTIONS:  NON-INVERTING INPUT
+*               | INVERTING INPUT
+*               | | POSITIVE POWER SUPPLY
+*               | | |  NEGATIVE POWER SUPPLY
+*               | | |  |  OUTPUT
+*               | | |  |  |
+.SUBCKT OPA277_0   + - V+ V- OUT
+*
+C1   11 12 4.8119E-12
+C2    6  7 110.00E-12
+DC    OUT 53 DY
+DE   54  OUT DY
+DLP  90 91 DX
+DLN  92 90 DX
+DP    V- V+ DX
+DQ1  20 21 DX
+DQ2  22 20 DX
+EGND 99  0 POLY(2) (V+,0) (V-,0) 0 .5 .5
+FB    7 99 POLY(5) VB VC VE VLP VLN 0 1.5000E9 -1E3 1E3 1E9 -1E9
+FQ1   V+  0 VQ1 1
+FQ2   0  V- VQ2 1
+FQ3   0 20 VLIM 1
+GA    6  0 11 12 133.33E-6
+GCM   0  6 10 99 13.333E-12
+IEE  10  V- DC 100.60E-6
+HLIM 90  0 VLIM 1K
+Q1   11  42 13 QX1
+Q2   12  41 14 QX2
+R2    6  9 100.00E3
+RC1   V+ 11 7.5000E3
+RC2   V+ 12 7.5000E3
+RE1  13 10 750
+RE2  14 10 750
+REE  10 99 1.9881E6
+RO1   8  OUT 50
+RO2   7 99 25
+RP    V+ V- 42.511E3
+VB    9  0 DC 0
+VC    V+ 53 DC 1.8124
+VE   54  V- DC 1.8124
+VLIM  7  8 DC 0
+VLP  91  0 DC 35
+VLN   0 92 DC 35
+VQ1  21  0 DC 0
+VQ2   0 22 DC 0
+*INPUT PROTECTION CIRCUITRY
+R1IN  + 41 1K
+R2IN  - 42 1K
+DIN1 41 42 DX
+DIN2 42 41 DX
+.MODEL DX D(IS=800.00E-18)
+.MODEL DY D(IS=800.00E-18 RS=1M CJO=10P)
+.MODEL QX1 NPN(IS=800.00E-18 BF=100E3 KF=250F)
+.MODEL QX2 NPN(IS=800.3094E-18 BF=200.00E3 KF=250F)
+.ENDS OPA277_0 
+
+
+.END
