@@ -1,0 +1,121 @@
+*//////////////////////////////////////////////////////////////////////
+* (C) NATIONAL SEMICONDUCTOR, INC.
+* MODELS DEVELOPED AND UNDER COPYRIGHT BY:
+* NATIONAL SEMICONDUCTOR, INC.
+*/////////////////////////////////////////////////////////////////////
+* LEGAL NOTICE: THIS MATERIAL IS INTENDED FOR FREE SOFTWARE SUPPORT.
+* THE FILE MAY BE COPIED, AND DISTRIBUTED; HOWEVER, RESELLING THE
+*  MATERIAL IS ILLEGAL
+*////////////////////////////////////////////////////////////////////
+* FOR ORDERING OR TECHNICAL INFORMATION ON THESE MODELS, CONTACT:
+* NATIONAL SEMICONDUCTOR'S CUSTOMER RESPONSE CENTER
+*                 7:00 A.M.--7:00 P.M.  U.S. CENTRAL TIME
+*                                (800) 272-9959
+* FOR APPLICATIONS SUPPORT, CONTACT THE INTERNET ADDRESS:
+*  AMPS-APPS@GALAXY.NSC.COM
+*//////////////////////////////////////////////////////////
+*LM118 OPERATIONAL AMPLIFIER MACRO-MODEL
+*//////////////////////////////////////////////////////////
+*
+* CONNECTIONS:      NON-INVERTING INPUT
+*                   |   INVERTING INPUT
+*                   |   |   POSITIVE POWER SUPPLY
+*                   |   |   |   NEGATIVE POWER SUPPLY
+*                   |   |   |   |   OUTPUT
+*                   |   |   |   |   |
+*                   |   |   |   |   |
+.SUBCKT LM118_0        1   2  99  50  28
+*
+* PINOUT ORDER +IN -IN V+ V- OUT
+*
+*
+*FEATURES:
+*INTERNAL FREQUENCY COMPENSATION
+*HIGH BANDWIDTH =                    15MHZ
+*MINIMUM SLEW RATE =                50V/US
+*LOW BIAS CURRENT =                  250NA
+*WIDE SUPPLY RANGE =         +-5V TO +-20V
+*
+****************INPUT STAGE**************
+*
+IOS 2 1 6N
+*^INPUT OFFSET CURRENT
+R1 1 3 1.5MEG
+R2 3 2 1.5MEG
+I1 4 50 100U
+R3 99 5 517
+R4 99 6 517
+Q1 5 2 4 QX
+Q2 6 7 4 QX
+*FP2=25 MHZ
+C4 5 6 6.1569P
+*
+***********COMMON MODE EFFECT***********
+*
+I2 99 50 4.9M
+*^QUIESCENT SUPPLY CURRENT
+EOS 7 1 POLY(1) 16 49 4E-3 1
+*INPUT OFFSET VOLTAGE.^
+R8 99 49 80.2K
+R9 49 50 80.2K
+*
+*********OUTPUT VOLTAGE LIMITING********
+V2 99 8 2.63
+D1 9 8 DX
+D2 10 9 DX
+V3 10 50 2.63
+*
+**************SECOND STAGE**************
+*
+EH 99 98 99 49 1
+G1 98 9 POLY(1) 5 6 0 3.0967E-4 0 596.674E-3
+*FP1=115 HZ
+R5 98 9 9.6877G
+C3 98 9 1.4286P
+*
+************POLE/ZERO STAGE*************
+*
+*FP=300 KHZ, FZ=600 KHZ
+G2 98 13 9 49 1E-6
+R10 98 13 1MEG
+R11 98 14 1MEG
+C6 14 13 2.6526E-13
+*
+***************POLE STAGE***************
+*
+*FP=55 MHZ
+G3 98 15 13 49 1E-6
+R12 98 15 1MEG
+C5 98 15 2.8937E-15
+*
+*********COMMON-MODE ZERO STAGE*********
+*
+*FPCM=3 KHZ
+G4 98 16 3 49 1E-8
+L2 98 17 53.1M
+R13 17 16 1K
+*
+**************OUTPUT STAGE**************
+*
+F6 50 99 POLY(1) V6 200U 1
+E1 99 23 99 15 1
+R16 24 23 30
+D5 26 24 DX
+V6 26 22 .63V
+R17 23 25 30
+D6 25 27 DX
+V7 22 27 .63V
+C9 23 22 100P
+V5 22 21 0.2V
+D4 21 15 DX
+V4 20 22 0.2V
+D3 15 20 DX
+L3 22 28 100P
+RL3 22 28 100K
+*
+***************MODELS USED**************
+*
+.MODEL DX D(IS=1E-15)
+.MODEL QX NPN(BF=333.333)
+*
+.ENDS
