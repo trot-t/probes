@@ -2,10 +2,10 @@
 \providecommand{\thisyear}{2020}
 \immediate\write18{rm \jobname.xmpdata}%  uncomment for Unix-based systems
 \begin{filecontents*}{\jobname.xmpdata}
-\Title{Датчики. Лабораторная работа №5\textemdash\thisyear}
+\Title{Датчики. Практическая работа №5\textemdash\thisyear}
 \Author{Артем Николаевич Прокшин}
 \Creator{pdfTeX + pdfx.sty with options \pdfxopts }
-\Subject{Лабораторная работа №5
+\Subject{Практическая работа №5
 \sep
         синхронизация с сетью}
 \Keywords{операционный усилитель, синхронизация с сетью, ЛЭТИ}
@@ -13,8 +13,8 @@
 \CoverDate{2020-04-08}
 \Copyrighted{True}
 \Copyright{Public Domain}
-\CopyrightURL{http://github.com/trot-t}
-\Creator{pdfTeX + pdfx.sty with options \pdfxopts }
+\CopyrightURL{https://www.researchgate.net/publication/371893460_Modification_of_the_Space_Vector_Pulse-Width_Modulation_Algorithm_for_a_Three-Phase_Inverter_Using_an_Oblique_Coordinate_System}
+
 \end{filecontents*}
 
 \documentclass[a4paper,12pt]{article}
@@ -97,7 +97,7 @@
  %       plot ({\x},{0.2*(\x-\xa)*(\x-\xb)});
 %\end{tikzpicture}
 %\section{Прецизионные схемы и малошумящая аппаратура}
-\section{Синхронизация с сетью}
+\section{Задание 5: Синхронизация с сетью}
 
 {\it Цель:} получить сигнал, облегчающий синхронизацию с сетью.
  
@@ -129,6 +129,10 @@
 \centering
 \begin{circuitikz}[scale=0.9]
 	\ctikzset{multipoles/dipchip/width=2.6}
+
+\ctikzset{resistors/scale=0.6}
+\ctikzset{capacitors/scale=0.6}
+
 \draw
 	(0,0) to[R,a=\tiny{R1},l=\tiny{\SI{30}{k}}] ++(-3,0) to[short] node[midway, above] {\small{synch in}}  ++ (-0.3,0)
 	(0,0) to[C, l=\tiny{C1},a=\tiny{\SI{0.1}{uF}},label/align=rotate] ++ (0,3) to[short] ++(3,0)
@@ -165,9 +169,9 @@
 	(D.bpin 3) --++ (-1,0) --++ (0,-1) node[ground] {}
 	(B.center) --++ (0,2.5) node(C){} to[R,l=\tiny{R5},a=\tiny{\SI{1}{MEG}},*-*] (COLOUT |- C) node(D){} -- (COLOUT.center)
 	(C.center) --++ (0,1.8) node(E){} to[C,l=\tiny{C1} \tiny{\SI{100}{pF}}] (COLOUT |- E) -- (D.center)
-	(COLOUT) to[R,l=\tiny{R6},a=\tiny{\SI{4}{k}},*-] ++ (2.5,0) node[above] {{\small +5V}}
-	(EMIOUT) ++(0,-2.2) node[ground] {} ++(0,-0.6) to[R,l=\tiny{R7},a=\tiny{\SI{30}{k}},label/align=rotate, ] (EMIOUT) 
-	(EMIOUT) to[short,*-] ++(2.5,0) node[below left] {\small{synch out}}
+	(COLOUT.center) to[R,l=\tiny{R6},a=\tiny{\SI{4}{k}},*-] ++ (2.5,0) node[above] {{\small +5V}}
+	(EMIOUT.center) ++(0,-2.2) node[ground] {} ++(0,-0.6) to[R,l=\tiny{R7},a=\tiny{\SI{30}{k}},label/align=rotate, ] (EMIOUT) 
+	(EMIOUT.center) to[short,*-] ++(2.5,0) node[below left] {\small{synch out}}
 	;
 \begin{scope}
 %	\ctikzset{tripoles/op amp/height=2.0, tripoles/op amp/width=1.4,}
@@ -198,7 +202,7 @@
 
 \subsection{Индивидуальные задания}
 
-Собрать схему в tina. Вход {\it synch in} соответствует выходу в схеме к лабораторной работе №4. 
+Собрать схему в программе ngspice или tina. Вход {\it synch in} соответствует выходу в схеме к практической работе №4. 
 
 \begin{itemize}
 	\item Построить графики переходных процессов.

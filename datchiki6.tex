@@ -2,10 +2,10 @@
 \providecommand{\thisyear}{2020}
 \immediate\write18{rm \jobname.xmpdata}%  uncomment for Unix-based systems
 \begin{filecontents*}{\jobname.xmpdata}
-\Title{Датчики. Лабораторная работа №6\textemdash\thisyear}
+\Title{Датчики. Практическая работа №6\textemdash\thisyear}
 \Author{Артем Николаевич Прокшин}
 \Creator{pdfTeX + pdfx.sty with options \pdfxopts }
-\Subject{Лабораторная работа №6
+\Subject{Практическая работа №6
 \sep
         датчики для системы управления ТАД}
 \Keywords{операционный усилитель, датчики для системы управления ТАД, ЛЭТИ}
@@ -13,8 +13,8 @@
 \CoverDate{2020-04-08}
 \Copyrighted{True}
 \Copyright{Public Domain}
-\CopyrightURL{http://github.com/trot-t}
-\Creator{pdfTeX + pdfx.sty with options \pdfxopts }
+\CopyrightURL{https://www.researchgate.net/publication/371893460_Modification_of_the_Space_Vector_Pulse-Width_Modulation_Algorithm_for_a_Three-Phase_Inverter_Using_an_Oblique_Coordinate_System}
+
 \end{filecontents*}
 
 \documentclass[a4paper,12pt]{article}
@@ -97,7 +97,7 @@
  %       plot ({\x},{0.2*(\x-\xa)*(\x-\xb)});
 %\end{tikzpicture}
 %\section{Прецизионные схемы и малошумящая аппаратура}
-\section{Датчики для системы управления ТАД}
+\section{Задание 6: Датчики для системы управления ТАД}
 
 {\it Цель: Рассчитать и смоделировать датчики для системы управления ТАД} 
 
@@ -105,7 +105,7 @@
  
 \subsection{Задание на работу №6}
 
-Рассчитать и смоделировать в tina схему измерения температуры, постоянного напряжения и силы тока фаз инвертора в силовой цепи тягового aсинхронного двигателя трамвая. 
+Рассчитать и смоделировать в программе ngspice или tina схему измерения температуры, постоянного напряжения и силы тока фаз инвертора в силовой цепи тягового aсинхронного двигателя трамвая. 
 Сделать акцент на отечественную элементную базу.
 Использовать трансформатор тока фирмы ЭЛТИ.
 Использовать дифференциальный усилитель AD8276 или ОУ, указанными \href{http://motorcontrol.ru/wp-content/uploads/2019/08/MCB2.pdf}{здесь}.
@@ -117,7 +117,12 @@
 
 \renewcommand{\bibname}{}
 \begin{thebibliography}{1}
-	\bibitem{lm211} \href{http://motorcontrol.ru/production/controlcards/motorcontrolboard/}{Отладочная плата MotorControlBoard К1921ВК01}
+%	\bibitem{lm211} \href{http://motorcontrol.ru/production/controlcards/motorcontrolboard/}{Отладочная плата MotorControlBoard К1921ВК01}
+        \bibitem{ngspice} \href{https://ngspice.sourceforge.io/}{Сайт с программой ngspice}
+        \bibitem{tina} \href{https://www.ti.com/tool/TINA-TI}{Сайт с программой tina (по состоянию 4 октября 2023 сайт с территории России недоступен)}
+        \bibitem{k1921} \href{http://motorcontrol.ru/wp-content/uploads/2019/08/MCB2.pdf}{схема электрическая принципиальная отладочнай платы MotorControlBoard К1921ВК01}
+        \bibitem{lm211} \href{https://www.ti.com/product/LM211}{LM211 Differential Comparator With Strobes, PSpice Model}
+
 \end{thebibliography}
 
 

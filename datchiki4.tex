@@ -2,10 +2,10 @@
 \providecommand{\thisyear}{2021}
 \immediate\write18{rm \jobname.xmpdata}%  uncomment for Unix-based systems
 \begin{filecontents*}{\jobname.xmpdata}
-\Title{Датчики. Лабораторная работа №4\textemdash\thisyear}
+\Title{Датчики. Практическая работа №4\textemdash\thisyear}
 \Author{Артем Николаевич Прокшин}
 \Creator{pdfTeX + pdfx.sty with options \pdfxopts }
-\Subject{Лабораторная работа №4
+\Subject{Практическая работа №4
 \sep
         измерение напряжения сети}
 \Keywords{операционный усилитель, измерение напряжения сети, ЛЭТИ}
@@ -13,7 +13,7 @@
 \CoverDate{2020-04-08}
 \Copyrighted{True}
 \Copyright{Public Domain}
-\CopyrightURL{http://github.com/trot-t}
+\CopyrightURL{https://www.researchgate.net/publication/371893460_Modification_of_the_Space_Vector_Pulse-Width_Modulation_Algorithm_for_a_Three-Phase_Inverter_Using_an_Oblique_Coordinate_System}
 \Creator{pdfTeX + pdfx.sty with options \pdfxopts }
 \end{filecontents*}
 
@@ -97,7 +97,7 @@
  %       plot ({\x},{0.2*(\x-\xa)*(\x-\xb)});
 %\end{tikzpicture}
 %\section{Прецизионные схемы и малошумящая аппаратура}
-\section{Измерение напряжения сети}
+\section{Задание 4: Измерение напряжения сети}
 
 {\it Цель:} научиться измерять напряжение сети.
  
@@ -115,6 +115,11 @@
 \begin{figure}[!ht]
 \centering
 \begin{circuitikz}[scale=0.9]
+
+\ctikzset{resistors/scale=0.6}
+\ctikzset{capacitors/scale=0.6}
+\ctikzset{diodes/scale=0.6}
+
 \draw
 	(0,0) node[transformer core] (T) {}
 	(T.A1) node[anchor=east, above] {$A$}
@@ -183,6 +188,9 @@ $1/2$,
 \begin{figure}[!ht]
 \begin{tikzpicture}
 	\ctikzset{multipoles/dipchip/width=1.6}
+\ctikzset{resistors/scale=0.6}
+\ctikzset{capacitors/scale=0.6}
+
 	\draw (0,0) node[dipchip, hide numbers, no topmark] (D) {}
 	(D.bpin 1) node[right, font=\tiny]  {TP} 
 	(D.bpin 2) node[right, font=\tiny]  {Vs} 
@@ -229,14 +237,14 @@ f_c = \ldots
 
 \subsection{Индивидуальные задания}
 
-Собрать схему в tina и восстановить пропуски в тексте и в формулах, 
+Собрать схему в программе ngspice или tina и восстановить пропуски в тексте и в формулах, 
 	присвоить позиционные обозначения элементов в схеме и привести в соответствие упоминания 
 	позиционных обозначений в тексте:
 \begin{itemize}
 	\item действующее напряжение сети принять равным $\left(110+10\cdot N_\textcyrillic{варианта}\right)$ B;
 \item частоту среза принять равной $\left(5+N_\textcyrillic{варианта}\right)$ кГц;
 \item внимание: УГО (условное графическое обозначение) операционного усилителя может 
-    отличаться от УГО ОУ, используемого программой tina.
+    отличаться от УГО ОУ, используемого программой ngspice или tina.
 \end{itemize}
 
 \vspace{1cm}
