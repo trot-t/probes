@@ -1,0 +1,35 @@
+\documentclass[utf8x, times, 14pt]{extarticle}
+%\documentclass[utf8x, times, 14pt]{extstandalone}
+%\documentclass[utf8x, times, 14pt]{standalone}
+\usepackage[fontsize=12]{fontsize}
+%\usepackage[active,tightpage]{preview}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[european,cuteinductors,smartlabels,siunitx]{circuitikz}
+
+\usepackage[a4paper, margin=0.0cm]{geometry}
+
+\begin{document}
+
+\pdfpagewidth 3.45in
+\pdfpageheight 1.7in
+
+\hspace{-6mm}
+\begin{tikzpicture}
+        \draw[thin,->,>=latex] (0,0) -- (6,0) node[below] {$f$, Гц};
+        \draw[thin,->,>=latex]  (0,0) -- (0,3) node[left] {$K_a$, дБ};
+%        \draw (0,0) node[below] {0};
+\foreach \x\xtext in {0/0, 1/10,2/10^2,3/10^3,4/10^4,5/10^5} %
+{
+   \draw (\x,0.0) -- (\x,-0.15);
+   \draw (\x,-0.7) node[above] {$\xtext$};
+}
+        \draw[ultra thick] (0,2) -- (2,2) -- (5,0.2);
+\end{tikzpicture}
+
+\end{document}
+

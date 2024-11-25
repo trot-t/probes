@@ -1,0 +1,64 @@
+\documentclass[utf8x, times, 14pt]{extarticle}
+%\documentclass[utf8x, times, 14pt]{extstandalone}
+%\documentclass[utf8x, times, 14pt]{standalone}
+\usepackage[fontsize=12]{fontsize}
+%\usepackage[active,tightpage]{preview}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[european,cuteinductors,smartlabels,siunitx]{circuitikz}
+
+\usepackage[a4paper, margin=0.0cm]{geometry}
+
+\begin{document}
+
+\pdfpagewidth 5.3in
+\pdfpageheight 4.1in
+
+\hspace{-6mm}
+\begin{tikzpicture}
+        \draw
+        (0,0) node[op amp] (opamp1) {$U_2$}
+        (0,6) node[op amp] (opamp2) {$U_1$}
+        (7,3) node[op amp] (opamp3) {$U_3$}
+        (opamp1.out) -- (3,0) node (a) {}  (3,6) node(b) {}  -- (opamp2.out);
+        \draw (2,0) to[R, l={$R_2$},*-] (2,2) node(a1) {} to[vR, l={$R_1$}] (2,4) node(a2) {} to[R, l={$R_2$}, -*] (2,6)
+        (opamp3.+) to[R, l={$R_3$}] (a |- opamp3.+) -- (3,0)
+        (opamp3.+) to[R,l={$R_4$}, *-] (opamp3.+ |- a) node[tlground] {} ++ (0.3, 0)  node[right] {Аналоговая земля}
+        (opamp3.-) --++ (0,1) node(c){} to[R,l_=$R_3$, *-] (a |- c) -- (3,6)
+        (opamp3.out) to[short,-o]++ (1,0) node[ocirc] {} node[below] {$v_0$}
+        (opamp3.out) to[short,*-] (opamp3.out |- c) to[R,l_=$R_4$] (opamp3.- |- c)
+
+        (opamp1.+) --++ (-1,0) node[ocirc] {} node[above left] {(+)} node[below left] {$v_2$}
+        (opamp2.+) ++ (-0.3,0)  node [jump crossing] (X) {}
+        (opamp2.+) -- (X.east) (X.west) --++ (-0.7,0) node[ocirc] {} node[above left] {($-$)} node[below left] {$v_1$}
+        (a2.center) to[short,*-] (opamp1.+ |- a2) -| (X.south) (X.north) |- (opamp2.-)
+        (a1.center) to[short,*-] (opamp1.+ |- a1)  --++ (-0.3,0) |- (opamp1.-)
+
+
+        %(a) -- (opamp1.+ |- a) to[jump crossing] (opamp2.-)
+        (-1.8,7.2) -- (-1.5,7.5) -- (2,7.5) node[midway, above]
+        {\begin{minipage}[h]{0.3\linewidth}
+                \begin{tabular}{l}
+        $K_\textcyrillic{диф} = 1 + \frac{2R_2}{R_1}$\\
+        $K_\textcyrillic{синф} = 1$
+                \end{tabular}
+        \end{minipage}} -- (2.3,7.2)
+
+        (4,7.2) -- (4.3,7.5) -- (8,7.5) node[midway, above]
+        {\begin{minipage}[h]{0.3\linewidth}
+                \begin{tabular}{l}
+                В случае $R_3=R_4$\\
+                $K_\textcyrillic{диф} = 1$\\
+                $K_\textcyrillic{синф} = 1$
+                \end{tabular}
+        \end{minipage}}
+        -- (8.3,7.2)
+        ;
+
+\end{tikzpicture}
+\end{document}
+

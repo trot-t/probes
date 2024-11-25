@@ -1,0 +1,44 @@
+\documentclass[utf8x, times, 14pt]{extarticle}
+%\documentclass[utf8x, times, 14pt]{extstandalone}
+%\documentclass[utf8x, times, 14pt]{standalone}
+\usepackage[fontsize=14]{fontsize}
+%\usepackage[active,tightpage]{preview}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[european,cuteinductors,smartlabels,siunitx]{circuitikz}
+
+\usepackage[a4paper, margin=0.0cm]{geometry}
+
+\begin{document}
+
+\pdfpagewidth 3.05in
+\pdfpageheight 2.50in
+
+%\setlength{\oddsidemargin}{-10pt} 
+%\setlength{\evensidemargin}{-101pt}
+
+%\pdfpageheight=\paperheight
+%\pdfpagewidth=\paperwidth
+
+
+\hspace{-6mm}\begin{tikzpicture}
+        \draw
+        (0,0) node[op amp] (opamp) {}
+
+        (opamp.-) to[R,l_={$R_1$},-o] ++ (-3,0) node(IN_P) {}
+        (opamp.out) to[short,-o] ++ (1,0) node(OUT_P) {}
+        (opamp.-) to[short,*-] ++ (0,1.2) node (A) {} to[R,l={$R_\textcyrillic{OC}$}] (opamp.out |- A) to[short,-*] (opamp.out)
+        (opamp.+) --++ (-1,0) to[R,l_={$R_2$}] ++ (0,-3) node[tground] (G) {}
+        (IN_P |- G) node[tground] {} to[short,-o] ++ (0,2.5) node(IN_M) {}
+        ($(IN_P) !0.5! (IN_M)$) node {$U_\textcyrillic{вх}$}
+        (OUT_P |- G) node[tground] {} to[short,-o] ++ (0,2) node(OUT_M) {}
+        ($(OUT_P) !0.5! (OUT_M)$) node {$U_\textcyrillic{вых}$}
+        ;
+\end{tikzpicture}
+
+\end{document}
+

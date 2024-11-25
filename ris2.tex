@@ -1,0 +1,43 @@
+\documentclass[utf8x, times, 14pt]{extarticle}
+%\documentclass[utf8x, times, 14pt]{extstandalone}
+%\documentclass[utf8x, times, 14pt]{standalone}
+\usepackage[fontsize=12]{fontsize}
+%\usepackage[active,tightpage]{preview}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[european,cuteinductors,smartlabels,siunitx]{circuitikz}
+
+\usepackage[a4paper, margin=0.0cm]{geometry}
+
+\begin{document}
+
+\pdfpagewidth 3.20in
+\pdfpageheight 2.7in
+
+\hspace{-6mm}
+\begin{tikzpicture}[scale=0.7]
+\draw[->,>=latex] (-5.3,0) -- (5.2,0) node[below] {$U_\textcyrillic{вх}$};
+\draw[->,>=latex] (0,-4.5) -- (0,4.5) node[left] {$U_\textcyrillic{вых}$};
+\draw[ultra thick,domain=-3.5:2.5]
+        plot(\x,{-\x-0.5});
+\draw[ultra thick] (-5,3) -- (-3.5,3) (2.5,-3) -- (4.5,-3);
+\draw[thin,dashed] (-5.3,3) -- (0,3) node[right] {$U_\textcyrillic{вых max}$}
+                (-5.3,3.8) -- (0,3.8) node[right] {$+U_\textcyrillic{пит}$}
+                (4.5,-3) -- (0,-3) node[left] {$U_\textcyrillic{вых min}$}
+                (4.5,-3.8) -- (0, -3.8) node[left] {$-U_\textcyrillic{пит}$};
+%               (-0.5, 2) -- (-0.5,0) node[below left] {U_\textcyrillic{сн}$};
+                 \draw[thin, dashed] (-0.5,0) -- (-0.5,1.8);
+                \draw[thin,->,>=latex] (-1.1,1.2) -- (-0.5,1.2);
+                \draw[thin,<-,>=latex] (0,1.2) -- (3,1.2) node[midway, above right] {$U_\textcyrillic{см}$};
+% \draw[thin,dashed] (0,-0.5) -- (2,-0.5); %по оси выходного напряжения
+%       \draw[thin,->,>=latex] (1.7,0.8) -- (1.7,0);
+%       \draw[thin,<-,>=latex]  (1.7,-0.5) -- (1.7,-1.5) node[midway,right] {$U_\textcyrillic{смещения}$};
+\draw (0,0) node[above right] {0};
+\end{tikzpicture}
+
+\end{document}
+

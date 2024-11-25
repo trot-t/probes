@@ -1,0 +1,38 @@
+\documentclass[utf8x, times, 14pt]{extarticle}
+%\documentclass[utf8x, times, 14pt]{extstandalone}
+%\documentclass[utf8x, times, 14pt]{standalone}
+\usepackage[fontsize=12]{fontsize}
+%\usepackage[active,tightpage]{preview}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[european,cuteinductors,smartlabels,siunitx]{circuitikz}
+
+\usepackage[a4paper, margin=0.0cm]{geometry}
+
+\begin{document}
+
+\pdfpagewidth 3.0in
+\pdfpageheight 2.7in
+
+
+\hspace{-6mm}
+\begin{tikzpicture}
+        \draw
+        (0,0) node[op amp, yscale=-1] (opamp) {}
+        (opamp.-) --++ (-1,0) --++ (0,-1.2) node(A) {} to[R,l_={$R_1$}] ++ (0,-2) --++ (0,0.4) to[C,l={C}] ++ (0,-2)  node[tground] (G) {} % инв. вход ОУ соединим с землей резистором R1
+        (A.center) to[R,l_=$R_{\textcyrillic{ОС}}$,*-] (opamp.out |- A) to[short,-*] (opamp.out)
+        (opamp.out) to[short,-o] ++ (1,0) node(OUT_P) {}       % вывод ОУ вместе с кружком "-o"
+        (OUT_P |- G) node[tground] {} to[short,-o] ++ (0,3) node(OUT_M) {} % от земли до выхода схемы
+        ($(OUT_P) !0.5! (OUT_M)$) node {$U_\textcyrillic{вых}$}  % справа от точки посередине между выходами схемы
+        (opamp.+) to[short,-o] ++ (-3,0) node(IN_P) {}  % инв.вход ОУ соединяем со входом "-o" схемы резистором R1
+        (IN_P |- G) node[tground] {} to[short,-o] ++ (0,3.5) node(IN_M) {}
+        ($(IN_P) !0.5! (IN_M)$) node {$U_\textcyrillic{вх}$} % посередине между узлами (+) и (-) входов -- подпись к метке
+        ;  % всегда в конце команды(в данном случае \draw) ставим точку с запятой
+        % !!! это самая распространенная ошибка почему может не работать
+\end{tikzpicture}
+\end{document}
+
