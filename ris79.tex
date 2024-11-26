@@ -1,0 +1,59 @@
+\documentclass[utf8x, times, 14pt]{extarticle}
+%\documentclass[utf8x, times, 14pt]{extstandalone}
+%\documentclass[utf8x, times, 14pt]{standalone}
+\usepackage[fontsize=12]{fontsize}
+%\usepackage[active,tightpage]{preview}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage[european,cuteinductors,smartlabels,siunitx]{circuitikz}
+
+\usepackage[a4paper, margin=0.0cm]{geometry}
+
+\begin{document}
+
+\pdfpagewidth 7.2in
+\pdfpageheight 3.3in
+
+
+\hspace{-6mm}
+\begin{tikzpicture}
+        \ctikzset{multipoles/dipchip/width=1.6}
+\ctikzset{resistors/scale=0.6}
+\ctikzset{capacitors/scale=0.6}
+
+        \draw (0,0) node[dipchip, hide numbers, no topmark] (D) {}
+        (D.bpin 1) node[right, font=\tiny]  {TP}
+        (D.bpin 2) node[right, font=\tiny]  {Vs}
+        (D.bpin 3) node[right, ocirc, anchor=0, font=\tiny]  { $\;\;\overline{\text{SLEEP}}$}
+        (D.bpin 4) node[right, font=\tiny]  {GND}
+        (D.bpin 5) node[left, font=\tiny]  {TP}
+        (D.bpin 6) node[left, font=\tiny]  {Output}
+        (D.bpin 7) node[left, font=\tiny]  {NC}
+        (D.bpin 8) node[left, font=\tiny]  {NC}
+        (D.bpin 2) to[short,-o] ++ (-4,0) node[above] {\tiny{+5 V}}
+        (D.bpin 3) to[short] ++ (-0.7,0) node(N1) {} to[short,-*] (N1 |- D.pin 2) ++ (-1,0) node(N2) {}
+        (D.pin 4) ++ (0,-0.5) node[right] {\tiny{REF192}}
+        (D.pin 1) ++ (0,0.5) node[right] {\tiny{$DA_x$}}
+        (N2.center) to[C,l2=\tiny{C2} and \tiny{\SI{0.1}{mF}}, *-] ++ (0,-2) node[ground] {}
+        (N2) ++ (-1.2,0) to[C,l2_=\tiny{C1} and \tiny{\SI{10}{mF}}, *-] ++ (0,-2) node[ground] {}
+        (D.bpin 4) --++ (-0.3,0) --++ (0,-0.5) node[ground] {}
+        (D.bpin 6) to[short,-*] ++ (2.7,0) to[C,l2=\tiny{C4} and \tiny{\SI{0.1}{mF}}, *-] ++ (0,-2) node[ground] {}
+        (D.bpin 6) ++ (1.5,0) to[C,l2_=\tiny{C3} and \tiny{\SI{1}{mF}}, *-] ++ (0,-2) node[ground] {}
+        (D.bpin 6) ++ (4.7,0) node(N3) {}  to[R,l2=\tiny{R1} and \tiny{\SI{51}{k}}, *-] ++ (0,-2) node[ground] {}
+        (N3.center) to[R,l2_=\tiny{R2} and \tiny{\SI{51}{k}}, *-] ++ (0,2) --++ (-2,0) to[short] ++ (0,-2)
+        (N3) ++ (3,0) node[op amp] (opamp) {}
+        (opamp.+) --++ (-0.6,0) node(N4) {}
+        (N3.center) -| (N4.center)
+        (opamp.up) --++(0,0.5) node[vcc] {\small{5\,\textnormal{V}}}
+        (opamp.down) --++(0,-0.5) node[vee]{\small{-5\,\textnormal{V}}}
+        (opamp.out) to[short,*-] ++ (0,2.3) node(N5) {} to[short] (opamp.- |- N5) to[short] (opamp.-)
+        (opamp.out) to[short,-o] ++ (1.5,0) node[above] {offset 1}
+        ;
+\end{tikzpicture}
+
+\end{document}
+
