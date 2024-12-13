@@ -40,13 +40,13 @@
         (opamp.+) |- (N4.center)
         (opamp.-) |- (N5.center)
         (opamp.up) --++(0,0.5) node[vcc] {5\,В}
-        (opamp.down) --++(0,-0.5) node[vee]{-5\,В}
+        (opamp.down) --++(0,-0.5) node[vee]{$-5$\,В}
         (opamp.out) to[short] ++ (0,3) node(N6) {} to[R,l_=$R_x$, *-*] (opamp.- |- N6) node(N7) {} to[short, -*] (opamp.- |- N5)
         (N6.center) --++ (0,1.5) node(N8) {}  to[C,l_=$C_x$] (opamp.- |- N8)  to[short] (opamp.- |- N6)
         (N8.center) to[short,*-] node[midway,above] {Synch in} ++ (1.5,0)
         ($(N4) ! 0.5 ! (N5)$) ++ (8,0) node[op amp] (opamp1) {}
         (opamp1.up) --++(0,0.5) node[vcc] {5\,В}
-        (opamp1.down) --++(0,-0.5) node[vee] {-5\,В}
+        (opamp1.down) --++(0,-0.5) node[vee] {$-$5\,В}
         (opamp.out |- N5) to[R,l=$R_x$,*-] ++ (1.8,0) -| (opamp1.-)
         (opamp1.out) to[R,l=$R_x$] ++ (1.8,0) node(N9) {} to[C,l=$C_x$,*-] ++ (0,-2) node[ground] {}
         (opamp1.+) to[R,l=$R_x$] ++ (-2,0) to[short] node[midway,below] {Offset} ++ (-1,0)
